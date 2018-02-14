@@ -1,0 +1,10 @@
+.closeButton {
+    margin-top: -8px;
+}
+
+.top-right {
+    position: absolute;
+    top: 8px !important;
+    right: 8px !important;
+}
+/*................*/

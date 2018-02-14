@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+
+<link rel="stylesheet" href="./css/high.css">
+<link rel="stylesheet" href="./css/colors.css">
+<link rel="stylesheet" href="./css/interface.css">
+<link rel="stylesheet" href="./css/bootstrap.css">
+<!-- Repare packet for Bootstrap-->
+<link rel="stylesheet" href="./css/upgradeBootstrap.css">
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"-->
+        <!--integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<style>
+    html, body, h1, h2, h3, h4, h5 {
+        font-family: "Open Sans", sans-serif
+    }
+</style>
+
+<link rel="stylesheet" href="./css/animation.css">
+
+<script src="./js/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+<script src="./js/editProfile.js"></script>
+
+<body class="w3-theme-l5" style="background-color: #303E45 !important;" ng-app="YouMap" ng-controller="myCtrl">
+
+<!-- Navbar -->
+<div class="w3-top nav-h">
+    <div class="w3-bar w3-theme-d5 w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+           href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="{{site}}/main" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"> <img src="Spotcues-icon.png" height="27px"/>&nbsp; YouMap </a>
+        <a href="{{site}}/main" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
+        <a href="{{site}}/editProfile" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i
+                class="fa fa-user"></i></a>
+        <a href="{{site}}/logout" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-small w3-hover-white" title="My Account">Wyloguj</a>
+    </div>
+</div>
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+</div>
+
+<div class="col-lg-8 col-sm-12" style="margin:0 auto;margin-top: 9vh;">
+    <h1 class="align-content-center align-middle" style="color: #0056b3;"><b>Edycja profilu</b></h1>
+<div id="edit" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <div class="card-header" role="tab" id="questionTwo">
+            <h5 class="card-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#edit" href="#answerTwo" aria-expanded="false" aria-controls="answerTwo">
+                    Chcesz ustawić imię i nazwisko?
+                </a>
+            </h5>
+        </div>
+        <div id="answerTwo" class="collapse" role="tabcard" aria-labelledby="questionTwo">
+            <div class="card-body">
+                <p>Na udostępnionych albumach będzie widoczne twoje imię i nazwisko.</p>
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" class="form-control" ng-model="name"  placeholder="Imię">
+                    </div>
+                    <div class="col-5">
+                        <input type="text" class="form-control" ng-model="surname"  placeholder="Nazwisko">
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-outline-info" ng-click="changeName">Ustaw!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" role="tab" id="questionOne">
+            <h5 class="card-title">
+                <a class="collapsed"  data-toggle="collapse" data-parent="#edit" href="#answerOne" aria-expanded="true" aria-controls="answerOne">
+                    Chcesz zmienić hasło do konta?
+                </a>
+            </h5>
+        </div>
+        <div id="answerOne" class="collapse" role="tabcard" aria-labelledby="questionOne">
+            <div class="card-body">
+                <p>Podaj stare hasło i wprowadź nowe.</p>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="oldPassword" placeholder="stare hasło">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="newPassword1" placeholder="nowe hasło">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="newPassword2" placeholder="nowe hasło">
+                </div>
+                <button type="button" class="btn btn-outline-warning btn-lg btn-block" ng-click="changePassword">Zmień!</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" role="tab" id="questionThree">
+            <h5 class="card-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#edit" href="#answerThree" aria-expanded="true" aria-controls="answerThree">
+                    Chcesz zmienić email'a?
+                </a>
+            </h5>
+        </div>
+        <div id="answerThree" class="collapse in" role="tabcard" aria-labelledby="questionThree">
+            <div class="card-body">
+                <div class="col-7">
+                    <input type="text" class="form-control" ng-model="email" placeholder="Nowy email">
+                </div>
+                <div class="col-4">
+                    <button type="button" ng-click="changeEmail" class="btn btn-outline-info">Ustaw!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" role="tab" id="questionFour">
+            <h5 class="card-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#edit" href="#answerFour" aria-expanded="true" aria-controls="answerFour">
+                    Chcesz usunąć konto?
+                </a>
+            </h5>
+        </div>
+        <div id="answerFour" class="collapse in" role="tabcard" aria-labelledby="questionFour">
+            <div class="card-body">
+                <button type="button" class="btn btn-outline-danger btn-lg btn-block" data-toggle="modal" data-target="#usunkonto">Proszę usunąć moje konto!</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- The modal - usun konto-->
+<div class="modal fade" id="usunkonto" tabindex="-1" role="dialog" style="margin-top: 20%" aria-labelledby="usunkonto" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: left !important; margin: -10px -10px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabel">Usuwanie konta</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <input type="password" ng-model="passwordForDelete" class="form-control col-4" placeholder="Wpisz Hasło">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="deleteAccount" class="btn btn-secondary" data-dismiss="modal">Usuń :(</button>
+            </div>
+            <div class="card"
+        </div>
+    </div>
+</div>
+</body>
+</html>

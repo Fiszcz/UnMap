@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+
+<link rel="stylesheet" href="./css/high.css">
+<link rel="stylesheet" href="./css/colors.css">
+<link rel="stylesheet" href="./css/interface.css">
+<link rel="stylesheet" href="./css/bootstrap.css">
+<!-- Repare packet for Bootstrap-->
+<link rel="stylesheet" href="./css/upgradeBootstrap.css">
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"-->
+        <!--integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<style>
+    html, body, h1, h2, h3, h4, h5 {
+        font-family: "Open Sans", sans-serif
+    }
+</style>
+
+<link rel="stylesheet" href="./css/animation.css">
+
+<!--Map-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUtF8yGLj-tVUm32MeR1KQqS0Jxlg3saU"
+        defer></script>
+
+<script src="./js/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+<script src="./js/youMapViewer.js"></script>
+
+<body class="w3-theme-l5" style="background-color: #303E45 !important;" ng-app="YouMap" ng-controller="myCtrl">
+
+<!-- Navbar -->
+<div class="w3-top nav-h">
+    <div class="w3-bar w3-theme-d5 w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+           href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="{{site}}/main" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"> <img src="Spotcues-icon.png" height="27px"/>&nbsp; YouMap </a>
+        <a href="{{site}}/main" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
+        <a href="{{site}}/editProfile" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i
+                class="fa fa-user"></i></a>
+        <a href="{{site}}/logout" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-small w3-hover-white" title="My Account">Wyloguj</a>
+    </div>
+</div>
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+</div>
+
+<!-- Panel with map and panel to editing -->
+<div class="w3-container w3-content row" style="max-width:1400px;">
+    <div class="col-7"></div>
+    <div class="col-7 full-height-1 position-fixed" id="map"></div>
+
+    <!--Color for the panel to editing is set by backgroud html-->
+    <div class="col-5 full-height-for-view container-fluid">
+        <div class="card" class="container-fluid">
+            <div ng-show="isPhotoSelected" ng-cloak>
+                <button type="button" class="close closeButton top-right" data-toggle="modal" data-target="#fullView" style="margin-top: 0px;"
+                        aria-label="Close">
+                    <span aria-hidden="true"><i class="fa fa-arrows-alt" style="font-size: 22px;"></i></span>
+                </button>
+
+                <!-- Image -->
+                <img class="card-img-top" ng-src="{{site}}/photo/{{idTravel}}/{{actualPoint.name}}">
+
+                <!-- Text Content -->
+                <div class="card-body">
+                    <p class="card-text">{{actualPoint.description}}<br> <span style="color: #0069d9">{{actualPoint.date}}</span></p>
+                </div>
+            </div>
+            <div ng-hide="isPhotoSelected" ng-cloak>
+                <!--<div class="card-header">-->
+                    <!--{{profile.name}} {{profile.surname}}  {{profile.login}}-->
+                <!--</div>-->
+                <div class="card-body">
+                    <h4 class="card-title" ng-cloak>{{travel.title}}</h4>
+                    <p class="card-text" ng-cloak>{{travel.description}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-group mt-4 mb-3">
+            <div ng-repeat="point in points">
+                <div class="list-group-item media pb-2 COL-MIDDLE-2 list-group-item-action" ng-click="setActualPoint($index)"
+                     ng-class="{'list-group-item-dark': indexActualPoint != $index,'list-group-item-info': indexActualPoint == $index}">
+                    <div class="media">
+                        <img class="mr-1 photoPanel" ng-src="{{site}}/photo/{{idTravel}}/{{point.name}}" alt="Sample photo">
+                        <div class="media-body ml-2">
+                            <div class="data">{{point.date}}</div>
+                            <div style="white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;  max-width: 360px;">
+                                {{point.description}}
+                            </div>
+                            <!--<div><span style="color: #0069d9">#Banglasesz #super #trip </span></div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

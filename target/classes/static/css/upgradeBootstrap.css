@@ -1,0 +1,18 @@
+.COL-MOST-LEFT {
+    padding-right: 3px;
+}
+
+.COL-MIDDLE {
+    padding-left: 3px; padding-right: 3px;
+}
+.COL-MIDDLE-2 {
+    padding-left: 6px; padding-right: 6px;
+}
+
+.COL-MOST-RIGHT {
+    padding-left: 3px;
+}
+
+.img {
+    vertical-align: baseline;
+}

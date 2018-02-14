@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="./css/high.css">
+    <link rel="stylesheet" href="./css/colors.css">
+    <link rel="stylesheet" href="./css/interface.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <!-- Repare packet for Bootstrap-->
+    <link rel="stylesheet" href="./css/upgradeBootstrap.css">
+
+    <script src="js/angular.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/LoginPage.js"></script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"-->
+            <!--integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <style>
+        html, body, h1, h2, h3, h4, h5 {
+            font-family: "Open Sans", sans-serif
+        }
+    </style>
+
+    <link rel="stylesheet" href="./css/LoginPage.css">
+</head>
+<body class="align-content-center" ng-app="YouMap">
+<div class="card" style="max-width: 26rem; top: 9rem; margin: 0 auto;">
+    <div class="card-header">
+        <ul class="nav nav-pills card-header-pills" >
+            <li class="nav-item">
+                <a class="nav-link active" href="#login" role="tab" id="login-tab" data-toggle="tab" aria-controls="login">Logowanie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#register" role="tab" id="register-tab" data-toggle="tab" aria-controls="register" >Rejestracja</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#about" role="tab" id="about-tab" data-toggle="tab" aria-controls="about">O serwisie</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" ng-controller="logRegForm">
+        <div id="clothing-nav-content" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade show active" id="login" aria-labelledby="login-tab">
+                <h4 class="card-title">Logowanie</h4>
+                <form>
+                    <div class="form-group">
+                        <input name="username" type="text" ng-model="credentials.username" class="form-control" id="loginAccount" placeholder="Twój login!">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" type="password" ng-model="credentials.password" class="form-control" id="password" placeholder="Twoje hasło!">
+                    </div>
+                    <input name="remember-me" type="hidden" value="true">
+                    <button type="button" class="btn btn-outline-primary btn-lg btn-block" ng-click="login()">Loguj!</button>
+                </form>
+            </div>
+        <div role="tabpanel" class="tab-pane fade" id="register" aria-labelledby="register-tab">
+            <h4 class="card-title">Rejestracja</h4>
+            <p class="card-text">Rejestracja jest banalnie prosta!<br> Wystarczy podać unikatowy dla siebie login oraz wystarczająco trudne hasło!</p>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="regUsername" id="loginToRegister" placeholder="Twój przyszły login!">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" ng-model="regPassword1" id="passwordToRegister1" placeholder="Twoje przyszłe hasło!">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" ng-model="regPassword2" id="passwordToRegister2" placeholder="Twoje przyszłe hasło!">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" ng-model="regEmail" id="email" placeholder="Twój email! (opcjalne)">
+            </div>
+            <button type="button" class="btn btn-outline-success btn-lg btn-block" ng-click="register()">Rejestruj</button>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="about" aria-labelledby="about-tab">
+            <h4 class="card-title">O serwisie</h4>
+            <p class="card-text">YouMap jest skierowany do osób kochających przeglądać swoje zdjęcia z podróży. Rejestrając się na naszym
+            portalu będziesz mógł tworzyć interaktywne mapy podróży i dzielić się nimi ze swoimi przyjaciółmi.</p>
+            <p class="btn btn-link btn-sm">Przykładowy album</p>
+        </div>
+        </div>
+    </div>
+    <div class="card-footer">
+    </div>
+</div>
+</body>
+</html>

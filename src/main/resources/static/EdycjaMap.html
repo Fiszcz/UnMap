@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"-->
+        <!--integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
+<link rel="stylesheet" href="./css/high.css">
+<link rel="stylesheet" href="./css/colors.css">
+<link rel="stylesheet" href="./css/bootstrap.css">
+
+<style>
+    html, body, h1, h2, h3, h4, h5 {
+        font-family: "Open Sans", sans-serif
+    }
+    /*html, body{*/
+        /*height: 100%;*/
+        /*overflow:hidden;*/
+    /*}*/
+</style>
+
+<link rel="stylesheet" href="./css/animation.css">
+
+<!--Map-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUtF8yGLj-tVUm32MeR1KQqS0Jxlg3saU"
+        async defer></script>
+
+<script src="./js/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+<script src="./js/youMapCreator.js"></script>
+
+<body class="w3-theme-l5" ng-app="YouMap" ng-controller="myCtrl">
+
+<!-- Navbar -->
+<div class="w3-top nav-h">
+    <div class="w3-bar w3-theme-d5 w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+           href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="{{site}}/main" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"> <img src="Spotcues-icon.png" height="27px"/>&nbsp; YouMap </a>
+        <a href="{{site}}/main" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
+        <a href="{{site}}/editProfile" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i
+                class="fa fa-user"></i></a>
+        <a href="{{site}}/logout" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-small w3-hover-white" title="My Account">Wyloguj</a>
+    </div>
+</div>
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+</div>
+
+<!-- Panel with map and panel to editing -->
+<div class="w3-container w3-content row" style="max-width:1400px;">
+
+    <!-- Panel with map -->
+    <!--<div class="col-8" ng-class="{'col-8': !showThirdPart, 'col-7': showThirdPart}"></div>-->
+    <div class="col-8 full-height-1 position-sticky" id="map" ng-class="{'col-8': !showThirdPart, 'col-7': showThirdPart}"></div>
+
+    <!-- Panel with editing -->
+    <div class="col-4 full-height-1 container border-dark navColor" ng-class="{'col-4': !showThirdPart, 'col-5': showThirdPart}">
+        <!-- First part -- select files before upload -->
+        <div class="animate-show-hide" ng-hide="hideFirstPart">
+            <button id="dodaj" type="button" class="btn p-2 addPhoto d-block mx-auto font-weight-bold" data-toggle="collapse"
+                    data-target="#addFile" aria-expanded="false" aria-controls="addFile">
+                <img src="Icons/addPhoto.png" height="30px">
+                Dodaj zdjęcia z geolokalizacją
+            </button>
+            <div class="collapse row align-items-center" id="addFile">
+                <input class="col-7 d-block mx-auto colform-control-sm form-control-file mt-2" type="file" multiple
+                       placeholder="pliki graficzne" id="photos">
+                <button type="button" class="col-6 btn d-block mx-auto mt-2" ng-click="uploadFiles()">Wgraj</button>
+            </div>
+
+            <button type="button" class="btn p-2 addManual mt-3 d-block mx-auto" ng-click="manualAdd()"> Dodaj punkty ręcznie!</button>
+            <div class="mt-5 d-block bg-white text-center borderS">
+                <div class="media">
+                    <img src="Icons/pointsOnMap.png" height="36px" class="mt-1 ml-1">
+                    <div class="media-body">Możesz również dodać punkty klikając na wybrane miejsce na mapie!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second part -- upload files -->
+        <div ng-cloak class="animate-show-hide" ng-show="showSecondPart">
+            <button id="dodaj1" type="button" class="btn p-2 addPhoto d-block mx-auto font-weight-bold">
+                <img src="Icons/uploadingPhotos.png" height="30px"> Wysyłanie zdjęć na serwer ...
+            </button>
+            <div class="progress mt-2">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" ng-style="{width : ( percentage + '%' ) }"></div>
+                <span>{{percentage}}% ({{howManyFilesUploaded}}/{{howManyFiles}})</span>
+            </div>
+
+            <div class="list-group mt-4">
+                <div ng-repeat="point in points" class="list-group-item media" ng-class="{'list-group-item-success': point.importantDetail, 'list-group-item-danger': !point.importantDetail}">
+                    <div class="media">
+                        <img class="mr-1 photoPanel" ng-src="{{site}}/photo/{{idTravel}}/{{point.name}}">
+                        <div class="media-body">
+                            <h6><strong>{{point.importantDetail ? 'Yupi! Udało się odczytać lokalizację i czas!' : 'Ups! Z tego zdjęcia nie da się odczytać lokalizacji!'}}</strong></h6>
+                            <p>Lokalizacja: {{point.ox}}; {{point.oy}}
+                                <br>Czas: {{point.when}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Third part -- edit points -->
+        <div ng-cloak class="container fieldEditPoints align-content-center pb-3 mb-3" ng-show="showThirdPart">
+            <h3><strong>Karta twojej podróży</strong></h3>
+            <h5>Tytuł</h5>
+            <input class="form-control" type="text" ng-model="title" onchange="angular.element(this).scope().changeTitle()">
+            <h5>Opis</h5>
+            <textarea class="form-control" ng-model="description" onchange="angular.element(this).scope().changeDescription()"></textarea>
+            <hr align="center" style="border: 1px solid; border-color: #464a4e; border-radius: 20%;">
+            <h4><strong>Twoje punkty na mapie</strong></h4>
+            <div class="row align-content-center mx-auto">
+                <button class="btn col-5 btn-sm mx-auto" data-toggle="collapse"
+                        data-target="#addAdditionalFile" aria-expanded="false" aria-controls="addAdditionalFile">Dodaj zdjęcie</button>
+                <button class="btn col-5 btn-sm mx-auto">Dodaj notkę tekstową</button>
+            </div>
+            <div class="collapse row align-items-center" id="addAdditionalFile">
+                <input class="col-7 d-block mx-auto colform-control-sm form-control-file mt-2" type="file" multiple
+                       placeholder="pliki graficzne" ng-model="photosAdditional">
+                <button type="button" class="col-6 btn d-block mx-auto mt-2" ng-click="uploadAdditionalFiles()">Wgraj</button>
+            </div>
+            <div class="list-group mt-4">
+                <div class="list-group-item media pb-2 COL-MIDDLE-2" ng-repeat="point in points">
+                    <div class="media">
+                        <img ng-show="point.contentType" class="mr-1 photoPanel" ng-src="{{site}}/photo/{{idTravel}}/{{point.name}}" alt="Sample photo">
+                        <div class="media-body">
+                            <div>
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" ng-model="point.oy" name="{{point.name}}" title="Północ/Południe" bs-tooltip onchange="angular.element(this).scope().changeLocation()">
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" ng-model="point.ox" name="{{point.name}}" title="Wschód/Zachód" bs-tooltip onchange="angular.element(this).scope().changeLocation()">
+                                <button type="button" class="btn btn-sm" ng-click="changeLocationByClick(point.name)"><img src="Icons/markerMapManual.png" height="24"
+                                                                                                     id="setManualLocationIcon"/>Ustal
+                                </button>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-7 COL-MOST-LEFT">
+                                    <input type="datetime-local" class="form-control form-control-sm" ng-model="point.whenInput" name="{{point.name}}" onchange="angular.element(this).scope().changeWhenPoint()">
+                                </div>
+                                <div class="col-4 COL-MOST-RIGHT">
+                                    <button type="button" class="btn btn-sm" data-toggle="collapse" data-target="#{{$index}}" aria-expanded="false"
+                                            aria-controls="{{$index}}">Dodaj opis
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="close mr-1 closeButton" aria-label="Close" ng-click="deletePoint(point.name, $index)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="collapse container-fluid mt-1" id="{{$index}}">
+                        <textarea class="form-control form-control-sm full-width" name="{{point.name}}" ng-model="point.description" onchange="angular.element(this).scope().changeDescriptionPoint()"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tooltip for bootstrap-->
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>

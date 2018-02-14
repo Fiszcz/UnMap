@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="./css/high.css">
+<link rel="stylesheet" href="./css/colors.css">
+<link rel="stylesheet" href="./css/interface.css">
+<link rel="stylesheet" href="./css/bootstrap.css">
+<!-- Repare packet for Bootstrap-->
+<link rel="stylesheet" href="./css/upgradeBootstrap.css">
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<style>
+    html, body, h1, h2, h3, h4, h5 {
+        font-family: "Open Sans", sans-serif
+    }
+</style>
+
+<link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
+<style>
+    .map-control {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+        font-family: 'Roboto', 'sans-serif';
+        margin: 10px;
+        /* Hide the control initially, to prevent it from appearing
+           before the map loads. */
+        display: none;
+    }
+
+    /* Display the control once it is inside the map. */
+    #map .map-control {
+        display: block;
+    }
+
+    .selector-control {
+        font-size: 14px;
+        line-height: 30px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+</style>
+<body class="w3-theme-l5" style="background-color: #303E45 !important;">
+
+<!-- Navbar -->
+<div class="w3-top nav-h">
+    <div class="w3-bar w3-theme-d5 w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+           href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"> <img src="Spotcues-icon.png" class="img" height="27px"/>&nbsp; YouMap </a>
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i
+                class="fa fa-user"></i></a>
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
+        <div class="w3-dropdown-hover w3-hide-small">
+            <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span
+                    class="w3-badge w3-right w3-small w3-green">3</span></button>
+            <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+                <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+                <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+                <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+            </div>
+        </div>
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-small w3-hover-white" title="My Account"><img
+                src="./profilowe.jpg" class="w3-circle" style="height:43px;width:43px" alt="Avatar"> </a>
+    </div>
+</div>
+
+<!-- Navbar on small screens -->
+<div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+</div>
+
+<!-- Panel with map and panel to editing -->
+<div class="w3-container w3-content row" style="max-width:1400px;">
+    <div class="col-7"></div>
+    <div class="col-7 full-height-1 position-fixed" id="map"></div>
+    <!--Color for the panel to editing is set by backgroud html-->
+    <div class="col-5 full-height-1 container-fluid">
+        <div class="container fieldEditPoints align-content-center pb-3 mb-3">
+            <h3><strong>Karta twojej podróży</strong></h3>
+            <h5>Nazwa</h5>
+            <input class="form-control" type="text">
+            <h5>Opis</h5>
+            <textarea class="form-control"></textarea>
+            <hr align="center" style="border: 1px solid; border-color: #464a4e; border-radius: 20%;">
+            <h4><strong>Twoje punkty na mapie</strong></h4>
+            <div class="row align-content-center mx-auto">
+                <button class="btn col-3 btn-sm mx-auto">Dodaj zdjęcie</button>
+                <button class="btn col-4 btn-sm mx-auto">Dodaj notkę tekstową</button>
+                <button class="btn col-4 btn-sm mx-auto">Dodaj link zewnętrzny</button>
+            </div>
+            <div class="list-group mt-4">
+                <div class="list-group-item media pb-2 COL-MIDDLE-2">
+                    <div class="media">
+                        <img class="mr-1 photoPanel" src="zdj1.jpg" alt="Sample photo">
+                        <div class="media-body">
+                            <div>
+                                <!--<div class="input-group-sm inputLocation">-->
+                                    <!--<input type="text" class="form-control form-control-sm d-inline-block"  value="25,43433">-->
+                                    <!--<span class="input-group-addon form-control-sm d-inline-block">N/S</span>-->
+                                <!--</div>-->
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="52°13′56″N" data-toggle="tooltip" title="Północ/Południe">
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="21°00′30″E" data-toggle="tooltip" title="Wschód/Zachód">
+                                <button type="button" class="btn btn-sm" id="setManualLocation"><img src="Icons/markerMapManual.png" height="24"
+                                                                                                     id="setManualLocationIcon"/>Ustal na mapie
+                                </button>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-7 COL-MOST-LEFT">
+                                    <input type="datetime-local" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-4 COL-MOST-RIGHT">
+                                    <button type="button" class="btn btn-sm" data-toggle="collapse" href="#about1" aria-expanded="false"
+                                            aria-controls="about1">Dodaj opis do punktu
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="close mr-1 closeButton" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="collapse container-fluid mt-1" id="about1">
+                        <textarea class="form-control form-control-sm full-width"></textarea>
+                    </div>
+                </div>
+                <div class="list-group-item media pb-2 COL-MIDDLE-2">
+                    <div class="media">
+                        <img class="mr-1 photoPanel" src="zdj2.jpg" alt="Sample photo">
+                        <div class="media-body">
+                            <div>
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="52°13′56″N">
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="21°00′30″E">
+                                <button type="button" class="btn btn-sm" id="setManualLocation"><img src="Icons/markerMapManual.png" height="24"
+                                                                                                     id="setManualLocationIcon"/>Ustal na mapie
+                                </button>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-7 COL-MOST-LEFT">
+                                    <input type="datetime-local" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-4 COL-MOST-RIGHT">
+                                    <button type="button" class="btn btn-sm">Dodaj opis do punktu</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="close mr-1 closeButton" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="list-group-item media pb-2 COL-MIDDLE-2">
+                    <div class="media">
+                        <img class="mr-1 photoPanel" src="zdj3.jpg" alt="Sample photo">
+                        <div class="media-body">
+                            <div>
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="52°13′56″N">
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="21°00′30″E">
+                                <button type="button" class="btn btn-sm" id="setManualLocation"><img src="Icons/markerMapManual.png" height="24"
+                                                                                                     id="setManualLocationIcon"/>Ustal na mapie
+                                </button>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-7 COL-MOST-LEFT">
+                                    <input type="datetime-local" class="form-control form-control-sm inputDate">
+                                </div>
+                                <div class="col-4 COL-MOST-RIGHT">
+                                    <button type="button" class="btn btn-sm">Dodaj opis do punktu</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="close mr-1 closeButton" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="list-group-item media pb-2 COL-MIDDLE-2">
+                    <div class="media">
+                        <img class="mr-1 photoPanel" src="zdj4.jpg" alt="Sample photo">
+                        <div class="media-body">
+                            <div>
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="52°13′56″N">
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="21°00′30″E">
+                                <button type="button" class="btn btn-sm" id="setManualLocation"><img src="Icons/markerMapManual.png" height="24"
+                                                                                                     id="setManualLocationIcon"/>Ustal na mapie
+                                </button>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-7 COL-MOST-LEFT">
+                                    <input type="datetime-local" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-4 COL-MOST-RIGHT">
+                                    <button type="button" class="btn btn-sm">Dodaj opis do punktu</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="close mr-1 closeButton" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="list-group-item media pb-2 COL-MIDDLE-2">
+                    <div class="media">
+                        <img class="mr-1 photoPanel" src="zdj5.jpg" alt="Sample photo">
+                        <div class="media-body">
+                            <div>
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="52°13′56″N">
+                                <input class="inputLocation form-control form-control-sm d-inline-block" type="text" value="21°00′30″E">
+                                <button type="button" class="btn btn-sm" id="setManualLocation"><img src="Icons/markerMapManual.png" height="24"
+                                                                                                     id="setManualLocationIcon"/>Ustal na mapie
+                                </button>
+                            </div>
+                            <div class="mt-1 row">
+                                <div class="col-7 COL-MOST-LEFT">
+                                    <input type="datetime-local" class="form-control inputDate form-control-sm">
+                                </div>
+                                <div class="col-5 COL-MOST-RIGHT overflow">
+                                    <button type="button" class="btn btn-sm">Dodaj opis do punktu</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="close mr-1 closeButton" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div id="map"></div>
+<script>
+    var map;
+
+    function initMap() {
+        // Create the map with no initial style specified.
+        // It therefore has default styling.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 24.35, lng: 89.5},
+            zoom: 7,
+            mapTypeControl: false
+        });
+
+        var flightPlanCoordinates = [
+            {lat: 22.357350, lng: 90.187722},
+            {lat: 23.187993, lng: 90.572244},
+            {lat: 24.394290, lng: 90.077859},
+            {lat: 25.895954, lng: 89.253884},
+            {lat: 25.450377, lng: 87.803689}
+        ];
+        var flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.2,
+            strokeWeight: 11
+        });
+
+        flightPath.setMap(map);
+
+        var icons = [
+            {
+                photo: 'zdj1png2.png',
+                position: new google.maps.LatLng(22.357350, 90.187722)
+            },
+            {
+                photo: 'zdj2png.png',
+                position: new google.maps.LatLng(23.187993, 90.572244)
+            },
+            {
+                photo: 'zdj3png.png',
+                position: new google.maps.LatLng(24.394290, 90.077859)
+            },
+            {
+                photo: 'zdj4png.png',
+                position: new google.maps.LatLng(25.895954, 89.253884)
+            },
+            {
+                photo: 'zdj5png.png',
+                position: new google.maps.LatLng(25.450377, 87.803689)
+            }];
+
+
+
+        // Create markers.
+        icons.forEach(function(icons) {
+            var marker = new google.maps.Marker({
+                position: icons.position,
+                icon: icons.photo,
+                map: map
+            });
+        });
+    }
+
+    var styles = {
+        default: null,
+        silver: [
+            {
+                elementType: 'geometry',
+                stylers: [{color: '#f5f5f5'}]
+            },
+            {
+                elementType: 'labels.icon',
+                stylers: [{visibility: 'off'}]
+            },
+            {
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#616161'}]
+            },
+            {
+                elementType: 'labels.text.stroke',
+                stylers: [{color: '#f5f5f5'}]
+            },
+            {
+                featureType: 'administrative.land_parcel',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#bdbdbd'}]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'geometry',
+                stylers: [{color: '#eeeeee'}]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#757575'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'geometry',
+                stylers: [{color: '#e5e5e5'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#9e9e9e'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{color: '#ffffff'}]
+            },
+            {
+                featureType: 'road.arterial',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#757575'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{color: '#dadada'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#616161'}]
+            },
+            {
+                featureType: 'road.local',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#9e9e9e'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'geometry',
+                stylers: [{color: '#e5e5e5'}]
+            },
+            {
+                featureType: 'transit.station',
+                elementType: 'geometry',
+                stylers: [{color: '#eeeeee'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'geometry',
+                stylers: [{color: '#c9c9c9'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#9e9e9e'}]
+            }
+        ],
+
+        night: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+                featureType: 'administrative.locality',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#d59563'}]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#d59563'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'geometry',
+                stylers: [{color: '#263c3f'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#6b9a76'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{color: '#38414e'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#212a37'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#9ca5b3'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{color: '#746855'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#1f2835'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#f3d19c'}]
+            },
+            {
+                featureType: 'transit',
+                elementType: 'geometry',
+                stylers: [{color: '#2f3948'}]
+            },
+            {
+                featureType: 'transit.station',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#d59563'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'geometry',
+                stylers: [{color: '#17263c'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#515c6d'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'labels.text.stroke',
+                stylers: [{color: '#17263c'}]
+            }
+        ],
+
+        retro: [
+            {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
+            {
+                featureType: 'administrative',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#c9b2a6'}]
+            },
+            {
+                featureType: 'administrative.land_parcel',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#dcd2be'}]
+            },
+            {
+                featureType: 'administrative.land_parcel',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#ae9e90'}]
+            },
+            {
+                featureType: 'landscape.natural',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+            },
+            {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#93817c'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'geometry.fill',
+                stylers: [{color: '#a5b076'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#447530'}]
+            },
+            {
+                featureType: 'road',
+                elementType: 'geometry',
+                stylers: [{color: '#f5f1e6'}]
+            },
+            {
+                featureType: 'road.arterial',
+                elementType: 'geometry',
+                stylers: [{color: '#fdfcf8'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry',
+                stylers: [{color: '#f8c967'}]
+            },
+            {
+                featureType: 'road.highway',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#e9bc62'}]
+            },
+            {
+                featureType: 'road.highway.controlled_access',
+                elementType: 'geometry',
+                stylers: [{color: '#e98d58'}]
+            },
+            {
+                featureType: 'road.highway.controlled_access',
+                elementType: 'geometry.stroke',
+                stylers: [{color: '#db8555'}]
+            },
+            {
+                featureType: 'road.local',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#806b63'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#8f7d77'}]
+            },
+            {
+                featureType: 'transit.line',
+                elementType: 'labels.text.stroke',
+                stylers: [{color: '#ebe3cd'}]
+            },
+            {
+                featureType: 'transit.station',
+                elementType: 'geometry',
+                stylers: [{color: '#dfd2ae'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'geometry.fill',
+                stylers: [{color: '#b9d3c2'}]
+            },
+            {
+                featureType: 'water',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#92998d'}]
+            }
+        ],
+
+        hiding: [
+            {
+                featureType: 'poi.business',
+                stylers: [{visibility: 'off'}]
+            },
+            {
+                featureType: 'transit',
+                elementType: 'labels.icon',
+                stylers: [{visibility: 'off'}]
+            }
+        ]
+    };
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJwSyqPMpaTjpMtCM3mVLAkugGrjl7wgM&callback=initMap"
+        async defer></script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>

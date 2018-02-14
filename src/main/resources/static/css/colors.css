@@ -1,0 +1,27 @@
+.addPhoto {
+    background-color: #3E774B;
+}
+
+.addPhoto:hover {
+    background-color: #558861;
+}
+
+button.addManual:hover {
+    background-color: #9DBA62;
+}
+
+.addManual {
+    background-color: #7EA332;
+}
+
+.navColor {
+    background-color: #303E45;
+}
+
+.fieldEditPoints {
+    background-color: #5A6469;
+}
+
+.data {
+    color: #6c757d;
+}

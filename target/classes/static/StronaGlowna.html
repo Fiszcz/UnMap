@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/Glowna.css">
+    <link rel="stylesheet" href="./CSS/Najwazniejsze.css">
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>-->
+    <script src="JS/angular.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>-->
+</head>
+<body ng-app="glowna" ng-controller="myCtrl">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+<!--Naglowek-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top naglowek">
+    <div class="container">
+        <a class="navbar-brand" href="#">Job Search</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#panelLogowanie" aria-expanded="false"
+                            aria-controls="logowanien">Zaloguj się
+                    </button>
+                </li>
+
+                <div class="collapse pl-2" id="panelLogowanie">
+                    <li class="nav-item">
+                        <form class="form-inline" id="formLogowanie">
+                            <!-- W razie bledow -->
+                            <style ng-if="czerwony==4">
+                                #loginLogowanie, #haslo {
+                                    background-color: palevioletred;
+                                }
+                            </style>
+                            <!-- ........ -->
+                            <label class="mr-sm-2 mb-0 sr-only" for="loginLogowanie">Login</label>
+                            <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" ng-model="login" required id="loginLogowanie" placeholder="Login">
+                            <label class="mr-sm-2 mb-0 sr-only" for="haslo">Hasło</label>
+                            <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" ng-model="haslo" required id="haslo" placeholder="Hasło">
+                            <button ng-disabled="!haslo || !login" ng-click="wyslij()" class="btn btn-default mt-2 mt-sm-0">Loguj!</button>
+                        </form>
+                        <div ng-if="czerwony==4" class="bladTekst">{{tekstBledu}}</div>  <!-- W razie bledow -->
+                    </li>
+                </div>
+                <li class="nav-item pl-2">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#panelRejestracja">Rejestracja</button>
+                </li>
+                <li class="nav-item active pl-4"></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- The modal - Rejestracja-->
+<div class="modal fade" id="panelRejestracja" tabindex="-1" role="dialog" aria-labelledby="rejestracja" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabel">Formularz Rejestracyjny</h4>
+            </div>
+            <div class="modal-body">
+                <input id="login" type="text" ng-model="loginRejestracja" class="form-control mr-sm-2 mb-2 mb-sm-0" ng-class="{bladObszar: bladLoginu}" placeholder="Login">
+                <div ng-show="bladLoginu" class="bladTekst">{{trescBladLoginu}}</div>
+                <input type="password" ng-class="{bladObszar: bladHasla}" id="haslo1" ng-model="haslo1" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Hasło">
+                <input type="password" ng-class="{bladObszar: bladHasla}" id="haslo2" ng-style="" ng-model="haslo2" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Potwierdź hasło">
+                <div ng-show="bladHasla" class="bladTekst">{{trescBladHasla}}</div>
+                <br>
+                <input type="email" ng-model="email" ng-class="{bladObszar: bladEmail}" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="e-mail">
+                <div ng-show="bladEmail" class="bladTekst">{{trescBladEmail}}</div>
+                <br>
+
+                <button class="btn btn-info mr-sm-2 mb-2 mb-sm-0" type="button" data-toggle="collapse" data-target="#footwear"
+                        aria-expanded="false" aria-controls="footwear">
+                    Wypełnij dodatkowe informacje!
+                </button>
+                <div class="collapse" id="footwear">
+                    <input type="text" ng-model="imie" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Imię">
+                    <input type="text" ng-model="nazwisko" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Nazwisko">
+                    Data Urodzenia: <input type="date" ng-model="data" class="form-control" placeholder="Data Urodzenia">
+                    <input type="tel" ng-model="telefon" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Numer Telefonu">
+                    Zdjęcie profilowe:<input type="file" ng-class="{bladObszar: bladPliku}" ng-model="zdjecie" class="form-control" placeholder="Twoje zdjęcie">
+                    <div ng-show="bladPliku" class="bladTekst">{{trescBladPliku}}</div>
+                    Czego Szukasz:
+                    <label class="custom-control custom-checkbox">
+                        <input ng-model="stala" value="1" type="checkbox" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Stałej pracy</span>
+                    </label>
+                    <label class="custom-control custom-checkbox">
+                        <input ng-model="praktyka" value="10" type="checkbox" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Praktyk</span>
+                    </label>
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" value="100" ng-model="zlecenie" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Zlecenia</span>
+                    </label>
+                    <input type="text" ng-model="adres" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Adres Zamieszkania">
+                    <input type="number" ng-model="minimalne" class="form-control mr-sm-2 mb-2 mb-sm-0"
+                           placeholder="Minimalne oczekiwania finansowe">
+                    <input type="text" ng-model="wyksztalcenie" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Wykształcenie">
+                    <input type="text" ng-model="doswiadczenie" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Doświadczenie">
+                    <input type="text" ng-model="osiagniecia" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Osiągnięcia">
+                    Plik CV:<input type="file" ng-model="CV" class="form-control mr-sm-2 mb-2 mb-sm-0" ng-class="{bladObszar: bladPliku2}" placeholder="Plik CV (tylko .pdf)">
+                    <div ng-show="bladPliku2" class="bladTekst">{{trescBladPliku2}}</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="rejestracja" ng-click="zarejestruj()" class="btn btn-info mr-sm-2 mb-2 mb-sm-0" type="button" aria-expanded="false">
+                    Prześlij!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pole wyszukiwania -->
+<div class="container .col-lg-6 justify-content-center bg-dark"
+     style="border-radius: 25px; opacity: 1; margin-top: 35%; max-width: 70%; padding-bottom: 1%;">
+    <h1 style="color: bisque; text-align: center"><strong>Baza ponad 2000 pracodawców i 6000 ofert! <br> Znajdź coś dla siebie!</strong></h1>
+    <form class="form-inline" style="align-content: center;  ">
+        <input type="text" class="form-control" style="width: 40%; margin-left: 2%;" id="kluczowe" placeholder="Słowo Kluczowe Oferty">
+        <input type="text" class="form-control" style="width: 27%; margin-left: 6%;" id="miasto" placeholder="Miasto">
+        <button type="submit" id="szukaj" class="btn btn-info" style="margin-left: 6%; width: 10%">Szukaj!</button>
+    </form>
+</div>
+
+<script src="JS/logowanie.js"></script>
+</body>
+</html>
