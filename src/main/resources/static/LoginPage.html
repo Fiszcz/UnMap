@@ -22,8 +22,7 @@
     <script src="js/jquery.js"></script>
     <script src="js/LoginPage.js"></script>
 
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"-->
-            <!--integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <style>
@@ -34,7 +33,7 @@
 
     <link rel="stylesheet" href="./css/LoginPage.css">
 </head>
-<body class="align-content-center" ng-app="YouMap">
+<body class="align-content-center justify-content-center" ng-app="YouMap">
 <div class="card" style="max-width: 26rem; top: 9rem; margin: 0 auto;">
     <div class="card-header">
         <ul class="nav nav-pills card-header-pills" >
@@ -50,8 +49,12 @@
         </ul>
     </div>
     <div class="card-body" ng-controller="logRegForm">
+        <!-- Login to service -->
         <div id="clothing-nav-content" class="tab-content">
             <div role="tabpanel" class="tab-pane fade show active" id="login" aria-labelledby="login-tab">
+                <div class="alert d-none" role="alert" ng-class="alertLogin">
+                    <strong>{{messageLogin}}</strong>
+                </div>
                 <h4 class="card-title">Logowanie</h4>
                 <form>
                     <div class="form-group">
@@ -64,23 +67,43 @@
                     <button type="button" class="btn btn-outline-primary btn-lg btn-block" ng-click="login()">Loguj!</button>
                 </form>
             </div>
+
+            <!-- Registration -->
         <div role="tabpanel" class="tab-pane fade" id="register" aria-labelledby="register-tab">
             <h4 class="card-title">Rejestracja</h4>
             <p class="card-text">Rejestracja jest banalnie prosta!<br> Wystarczy podać unikatowy dla siebie login oraz wystarczająco trudne hasło!</p>
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="regUsername" id="loginToRegister" placeholder="Twój przyszły login!">
+            <!-- Login - registration -->
+            <div class="input-group form-group" data-toggle="tooltip" data-placement="top" title="{{titleLogin}}" ng-init="titleLogin: 'Login składający się z co najmniej 4 znaków'" ng-class="colorLogin">
+                <input type="text" class="form-control" ng-model="regUsername" id="loginToRegister" placeholder="Twój przyszły login!" ng-blur="checkLogin()">
+                <!-- Icon in input-->
+                <span class="input-group-addon bg-primary" ng-class="colorIconLogin">
+                    <span class="fa-question-circle-o fa" style="font-size: 150%;" ng-class="iconLogin"></span>
+                </span>
             </div>
-            <div class="form-group">
+            <!-- Password - registration -->
+            <div class="input-group form-group" data-toggle="tooltip" data-placement="top" title="Hasło z co najmniej 7 znaków w tym z cyfr" ng-class="colorPassword">
                 <input type="password" class="form-control" ng-model="regPassword1" id="passwordToRegister1" placeholder="Twoje przyszłe hasło!">
+                <!-- Icon in input-->
+                <span class="input-group-addon bg-primary" ng-class="colorIconPassword">
+                    <span class="fa-question-circle-o fa" style="font-size: 150%;" ng-class="iconPassword"></span>
+                </span>
             </div>
-            <div class="form-group">
+            <!-- Password 2 - registration -->
+            <div class="input-group form-group" ng-class="colorPassword">
                 <input type="password" class="form-control" ng-model="regPassword2" id="passwordToRegister2" placeholder="Twoje przyszłe hasło!">
             </div>
-            <div class="form-group">
-                <input type="email" class="form-control" ng-model="regEmail" id="email" placeholder="Twój email! (opcjalne)">
+            <!-- Email - registration -->
+            <div class="input-group form-group" data-toggle="tooltip" data-placement="top" title="{{titleEmail}}" ng-class="colorEmail">
+                <input type="email" class="form-control" ng-model="regEmail" id="email" placeholder="Twój email! (opcjalne)" ng-blur="checkEmail()">
+                <!-- Icon in input-->
+                <span class="input-group-addon bg-warning d-none" ng-class="colorIconEmail">
+                    <span class="fa fa-warning" style="font-size: 150%;" ng-class="iconEmail"></span>
+                </span>
             </div>
             <button type="button" class="btn btn-outline-success btn-lg btn-block" ng-click="register()">Rejestruj</button>
         </div>
+
+            <!-- About website -->
         <div role="tabpanel" class="tab-pane fade" id="about" aria-labelledby="about-tab">
             <h4 class="card-title">O serwisie</h4>
             <p class="card-text">YouMap jest skierowany do osób kochających przeglądać swoje zdjęcia z podróży. Rejestrając się na naszym
@@ -92,5 +115,10 @@
     <div class="card-footer">
     </div>
 </div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 </body>
 </html>

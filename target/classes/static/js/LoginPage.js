@@ -40,6 +40,21 @@ angular.module('YouMap', [])
         $scope.red = false;
 
         $scope.credentials = {};
+        
+        $scope.regPassword1 = "";
+        $scope.regPassword2 = "";
+        $scope.regLogin = "";
+        $scope.regEmail = "";
+
+        $scope.colorEmail = {};
+        $scope.colorIconEmail = {};
+        $scope.colorLogin = {};
+        $scope.colorIconLogin = {};
+        $scope.colorPassword = {};
+        $scope.colorIconPassword = {};
+
+        regExpPassword = new RegExp("(/^(?=.*\d)[0-9a-zA-Z]{7,}$/)");
+        regExpEmail = new RegExp("/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/");
 
         var loginSuccess = function () {
             $rootScope.authenticated = true;
@@ -74,29 +89,46 @@ angular.module('YouMap', [])
 //        });
 //         };
 
+        $scope.checkLogin = function() {
+            if($scope.regUsername.length < 4) {
+                $scope.colorLogin = "is-invalid";
+                $scope.iconLogin = "fa-warning";
+                $scope.colorIconLogin = "bg-danger";
+                return 1;
+            }
+            $scope.colorLogin = "is-valid";
+            $scope.iconLogin = "";
+            $scope.colorIconLogin = "";
+        };
+
+        $scope.checkPassword = function() {
+            if(!regExpPassword.test($scope.regPassword1) && $scope.regPassword1 != $scope.regPassword2) {
+                $scope.colorPassword = "is-invalid";
+                $scope.iconPassword = "fa-warning";
+                $scope.colorIconPassword = "bg-danger";
+                return 1;
+            }
+            $scope.colorPassword = "is-valid";
+            $scope.iconPassword = "";
+            $scope.colorIconPassword = "";
+        };
+
+        $scope.checkEmail = function() {
+            if(!regExpEmail.test($scope.regEmail) && $scope.regPassword1 != $scope.regPassword2) {
+                $scope.colorEmail = "is-invalid";
+                $scope.iconEmail = "fa-warning";
+                $scope.colorIconEmail = "bg-danger d-block";
+                return 1;
+            }
+            $scope.colorEmail = "is-valid";
+            $scope.iconEmail = "";
+            $scope.colorIconEmail = "";
+        };
+
         //Do Rejestracji
         $scope.register = function () {
-            $scope.errorRegPassword = false;
-            $scope.errorRegUsername = false;
-            $scope.errorRegEmail = false;
-            if (('' + $scope.regUsername).length < 5 || $scope.regUsername === undefined) {
-                $scope.errorRegUsername = true;
-                $scope.textErrorRegUsername = "Podałeś zbyt krótki login";
-            }
-            if (('' + $scope.regPassword1).length < 7 || $scope.regPassword1 === undefined) {
-                $scope.errorRegPassword = true;
-                $scope.textErrorRegPassword = "Zbyt krótkie hasło!";
-            }
-            else if ($scope.regPassword1 != $scope.regPassword2) {
-                $scope.errorRegPassword = true;
-                $scope.textErrorRegPassword = "Podane hasła nie są takie same!";
-            }
-            if ($scope.regEmail === undefined) {
-                $scope.errorRegEmail = true;
-                $scope.textErrorRegEmail = "Do rejestracji potrzebny jest twój adres E-mail!";
-            }
 
-            if ($scope.errorRegUsername || $scope.errorRegPassword || $scope.errorRegEmail)
+            if(checkEmail() || checkPassword() || checkLogin())
                 return;
 
             var user = {};
