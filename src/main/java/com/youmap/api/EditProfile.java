@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.youmap.entity.User;
-import com.youmap.repository.TravelDAO;
-import com.youmap.repository.UserDAO;
+import com.youmap.service.AccessService;
+import com.youmap.service.EditProfileService;
+import com.youmap.service.ProfileService;
 
 
 @RestController
@@ -24,53 +24,31 @@ public class EditProfile {
     BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	UserDAO userDAO;
+	EditProfileService editProfileService;
 	
 	@Autowired
-	TravelDAO travelDAO;
+	AccessService accessService;
+	
+	@Autowired
+	ProfileService profileService;
 	
 	@PostMapping("/setName")
 	public String setName(@AuthenticationPrincipal Principal principal, @RequestBody Map<String, String> json) {
-		
-		User user = userDAO.findByUsername(principal.getName());
-		user.setName(json.get("name"));
-		user.setSurname(json.get("surname"));
-		userDAO.save(user);
-		return "Pomyślnie zmieniono!";
+		return editProfileService.setName(principal.getName(), json.get("name"), json.get("surname"));
 	}
 	
 	@PostMapping("/changePassword")
 	public String changePassword(@AuthenticationPrincipal Principal principal, @RequestBody Map<String, String> passwords) {
-		
-		User user = userDAO.findByUsername(principal.getName());
-		String hashPassword = passwordEncoder.encode(passwords.get("oldPassword").trim());
-		if(hashPassword == user.getPassword()) {
-			hashPassword = passwordEncoder.encode(passwords.get("newPassword").trim());
-			user.setPassword(hashPassword);
-			userDAO.save(user);
-			return "Pomyślnie zmieniono!";
-		}
-		//error
-		return "Blad!";
+		return accessService.changePassword(principal.getName(), passwords.get("oldPassword").trim(), passwords.get("newPassword").trim());
 	}
 	
 	@PostMapping("/changeEmail")
 	public String changeEmail(@AuthenticationPrincipal Principal principal, @RequestBody String email) {
-		
-		User user = userDAO.findByUsername(principal.getName());
-		user.setEmail(email);
-		userDAO.save(user);
-		return "Pomyślnie zmieniono!";
+		return editProfileService.setEmail(principal.getName(), email);
 	}
 	
 	@PostMapping("/deleteAccount")
 	public String deleteAccount(@AuthenticationPrincipal Principal principal, @RequestBody String password) {
-		User user = userDAO.findByUsername(principal.getName());
-		if(passwordEncoder.encode(password.trim()) == user.getPassword()) {
-			travelDAO.delete(user.getTravels());
-			userDAO.delete(user);
-			return "Usunięto!";
-		}
-		return "Coś poszło nie tak!";
+		return profileService.deleteAccount(principal.getName(), password);
 	}
 }

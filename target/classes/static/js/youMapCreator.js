@@ -178,7 +178,7 @@ angular.module('YouMap', ['ngAnimate'])
             $scope.points[index].marker.setMap(null);
             $scope.points.splice(index, 1);
             createTravelPath($scope.points);
-            Change.change(joinIdTravel(DELETE_POINT_ENDPOINT), name);
+            Change.change(joinIdTravel(DELETE_POINT_ENDPOINT), {"code": name});
         };
 
         $scope.changeLocation = function () {

@@ -30,8 +30,7 @@ public class Image {
 	TravelDAO travelDAO;
 	
 	@GetMapping("/{idTravel}/{namePhoto}")
-	public void getPhoto(@PathVariable String idTravel ,@PathVariable String namePhoto,HttpServletResponse response)
-			throws IOException{
+	public void getPhoto(@PathVariable String idTravel, @PathVariable String namePhoto, HttpServletResponse response) throws IOException{
 		
 		Point point = pointDAO.findByName(namePhoto);
 		Travel travel = travelDAO.findByCode(idTravel);

@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.youmap.entity.Travel;
-import com.youmap.entity.User;
-import com.youmap.repository.TravelDAO;
-import com.youmap.repository.UserDAO;
+import com.youmap.service.ProfileService;
 
 
 @RestController
@@ -20,16 +18,10 @@ import com.youmap.repository.UserDAO;
 public class Travels {
 	
 	@Autowired
-	UserDAO userDAO;
-	
-	@Autowired
-	TravelDAO travelDAO;
+	ProfileService profileService;
 	
 	@GetMapping("/get/all/forUser")
 	public List<Travel> getTravelsForUser(@AuthenticationPrincipal Principal principal) {
-		
-		User user = userDAO.findByUsername(principal.getName());
-		List<Travel> travels = user.getTravels();
-		return travels;
+		return profileService.getTravelForUser(principal.getName());
 	}
 }

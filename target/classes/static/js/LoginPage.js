@@ -40,7 +40,7 @@ angular.module('YouMap', [])
         $scope.red = false;
 
         $scope.credentials = {};
-        
+
         $scope.regPassword1 = "";
         $scope.regPassword2 = "";
         $scope.regLogin = "";
