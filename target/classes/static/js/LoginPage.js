@@ -2,7 +2,7 @@ angular.module('YouMap', [])
     .constant('LOGIN_ENDPOINT', 'http://localhost:8080/login')
     .constant('REGISTER_ENDPOINT', 'http://localhost:8080/access/register')
     .service('AuthenticationService', function ($http, LOGIN_ENDPOINT, REGISTER_ENDPOINT) {
-        this.authenticate = function (credentials, successCallback) {
+        this.authenticate = function (credentials, unsuccessCallback) {
             var form = new FormData();
             form.append("remember-me", "true");
             var authorization = "Basic "+btoa(credentials.username + ':' + credentials.password);
@@ -24,16 +24,12 @@ angular.module('YouMap', [])
             $.ajax(settings).done(function (response) {
                 console.log(response);
                 window.location.replace("http://localhost:8080/main");
-            });
+            }).fail(unsuccessCallback({data:{code: "dataLogin.invalid", message: "Username or password is incorrect"}}));
         };
-        this.registration = function (user) {
+        this.registration = function (user, successCallback, unsuccessCallback) {
             $http
                 .post(REGISTER_ENDPOINT, user)
-                .then(function success(value) {
-
-                }, function error(reason) {
-                    console.log(reason);
-                });
+                .then(successCallback, unsuccessCallback);
         }
     })
     .controller('logRegForm', function ($scope, $http, $rootScope, AuthenticationService) {
@@ -41,11 +37,16 @@ angular.module('YouMap', [])
 
         $scope.credentials = {};
 
+        $scope.titleLogin = 'Login składający się z co najmniej 4 znaków';
+        $scope.titlePassword = "Hasło z co najmniej 7 znaków w tym z cyfr";
+
         $scope.regPassword1 = "";
         $scope.regPassword2 = "";
         $scope.regLogin = "";
         $scope.regEmail = "";
 
+        $scope.iconLogin='fa-question-circle-o';
+        $scope.iconPassword='fa-question-circle-o';
         $scope.colorEmail = {};
         $scope.colorIconEmail = {};
         $scope.colorLogin = {};
@@ -53,105 +54,133 @@ angular.module('YouMap', [])
         $scope.colorPassword = {};
         $scope.colorIconPassword = {};
 
-        regExpPassword = new RegExp("(/^(?=.*\d)[0-9a-zA-Z]{7,}$/)");
-        regExpEmail = new RegExp("/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/");
+        $scope.errorsRegister = [];
+        var invalidEmail;
+        var invalidUsername;
 
-        var loginSuccess = function () {
-            $rootScope.authenticated = true;
-        };
+        var regExpPassword = new RegExp("^(?=[^\d_].*?\d)\w(\w|[!@#$%]){7,50}");
+        var regExpEmail = new RegExp("^[^@]+@[^@]+.[^@]{2,}$");
+
         $scope.login = function () {
             if ($scope.credentials.username === undefined || $scope.credentials.password === undefined) {
                 $scope.red = 4;
-                $scope.errorLogin = "Wprowadz dane do logowania!";
+                $scope.errorLogin = "Wprowadź dane do logowania!";
                 return;
             }
-            AuthenticationService.authenticate($scope.credentials, loginSuccess);
+            AuthenticationService.authenticate($scope.credentials, setAlertLogin);
         };
 
-        //Do Logowania
-        // $scope.wyslij = function () {
-        //
-        //     vm.credentials.username = $scope.login;
-        //     vm.credentials.password = $scope.haslo;
-        //     vm.login();
-//        $http({
-//            method : "POST",
-//            url : "gooddfsfs.com"
-//        }).then(function sukces(response) {
-//            if(response==2){
-//                $scope.czerwony = 4;
-//                $scope.tekstBledu = "Błędne dane do logowania!";
-//            }
-//            //przekierowanie
-//        }, function error(response) {
-//            $scope.czerwony = 4;
-//            $scope.tekstBledu = "Błąd podczas połączenia z serwerem";
-//        });
-//         };
-
-        $scope.checkLogin = function() {
-            if($scope.regUsername.length < 4) {
+        $scope.checkLogin = function(after = true) {
+            if($scope.regUsername.length < 4 && after) {
                 $scope.colorLogin = "is-invalid";
                 $scope.iconLogin = "fa-warning";
                 $scope.colorIconLogin = "bg-danger";
-                return 1;
+            } else if(invalidUsername != $scope.regUsername) {
+                $scope.colorLogin = "is-valid";
+                $scope.iconLogin = "fa-question-circle-o";
+                $scope.colorIconLogin = "";
             }
-            $scope.colorLogin = "is-valid";
-            $scope.iconLogin = "";
-            $scope.colorIconLogin = "";
         };
 
-        $scope.checkPassword = function() {
-            if(!regExpPassword.test($scope.regPassword1) && $scope.regPassword1 != $scope.regPassword2) {
+        $scope.checkPassword = function(after = true) {
+            if(!regExpPassword.test($scope.regPassword1) && $scope.regPassword1 != $scope.regPassword2 && after) {
                 $scope.colorPassword = "is-invalid";
                 $scope.iconPassword = "fa-warning";
                 $scope.colorIconPassword = "bg-danger";
                 return 1;
             }
             $scope.colorPassword = "is-valid";
-            $scope.iconPassword = "";
+            $scope.iconPassword = "fa-question-circle-o";
             $scope.colorIconPassword = "";
         };
 
-        $scope.checkEmail = function() {
-            if(!regExpEmail.test($scope.regEmail) && $scope.regPassword1 != $scope.regPassword2) {
+        $scope.checkEmail = function(after = true) {
+            if(!regExpEmail.test($scope.regEmail) && after) {
                 $scope.colorEmail = "is-invalid";
                 $scope.iconEmail = "fa-warning";
                 $scope.colorIconEmail = "bg-danger d-block";
-                return 1;
+            } else if(invalidEmail != $scope.regEmail) {
+                $scope.colorEmail = "is-valid";
+                $scope.iconEmail = "";
+                $scope.colorIconEmail = "";
             }
-            $scope.colorEmail = "is-valid";
-            $scope.iconEmail = "";
-            $scope.colorIconEmail = "";
         };
 
-        //Do Rejestracji
+        $scope.clearRegisterForm = function () {
+            $scope.regEmail = "";
+            $scope.regPassword1 = "";
+            $scope.regPassword2 = "";
+            $scope.regUsername = "";
+            $scope.checkEmail(false);
+            $scope.checkLogin(false);
+            $scope.checkPassword(false);
+            $scope.textAlertRegister = "";
+            $scope.classAlertRegister = "";
+        };
+
+        var setAlertRegister = function(response) {
+            response = response.data;
+            var classDanger = 'alert alert-danger';
+            var classWarning = 'alert alert-warning';
+
+            for(var i=0; i<response.length; i++){
+                var error = response[i];
+                switch(error.code){
+                    case 'username.syntax':
+                    case 'email.syntax':
+                        $scope.errorsRegister.push({text: error.message, class: classDanger});
+                        return;
+                    case 'username.repeated':
+                        $scope.colorLogin = "is-warning";
+                        $scope.iconLogin = "fa-warning";
+                        $scope.colorIconLogin = "bg-warning";
+                        invalidUsername = $scope.regUsername.toString();
+                        $scope.errorsRegister.push({text: error.message, class: classWarning});
+                        break;
+                    case 'email.repeated':
+                        $scope.colorEmail = "is-warning";
+                        $scope.iconEmail = "fa-warning";
+                        $scope.colorIconEmail = "bg-warning d-block";
+                        invalidEmail = $scope.regEmail.toString();
+                        $scope.errorsRegister.push({text: error.message, class: classWarning});
+                        break;
+                }}
+        };
+
+        var setAlertLogin = function (response) {
+            response = response.data;
+            $scope.textAlertLogin = response.message;
+            switch(response.code){
+                case 'dataLogin.invalid':
+                    $scope.classAlertLogin = 'd-block alert-warning';
+                    $scope.credentials.password = "";
+                    break;
+                case 'register.done':
+                    $scope.classAlertLogin = 'd-block alert-success';
+                    $scope.clearRegisterForm();
+                    $('[href="#login"]').tab('show');
+                    break;
+            }
+        };
+
+        //Registration
         $scope.register = function () {
 
-            if(checkEmail() || checkPassword() || checkLogin())
+            if($scope.checkEmail() || $scope.checkPassword() || $scope.checkLogin())
                 return;
 
             var user = {};
             user.password = $scope.regPassword1;
             user.username = $scope.regUsername;
             user.email = $scope.regEmail;
-            AuthenticationService.registration(user);
-            // $http.post('api/registration', details)
-            //     .then(function sukces(response) {
-            //         vm.credentials.username = $scope.loginRejestracja;
-            //         vm.credentials.password = $scope.haslo1;
-            //         vm.login();
-            //     }, function error(response) {
-            //         if (response.data.description == "2") {
-            //             $scope.bladLoginu = 1;
-            //             $scope.trescBladLoginu = "Taki login już istnieje. Wybierz inny!";
-            //         }
-            //         else if (response.data.description == "3") {
-            //             $scope.bladEmail = 1;
-            //             $scope.trescBladEmail = "Taki adres e-mail już widnieje w naszej bazie danych";
-            //         }
-            //         else
-            //             console.log(response);
-            //     });
+
+            //clear alerts for login and register forms
+            $scope.errorsRegister = [];
+            $scope.classAlertLogin = "";
+            //clear password fields
+            $scope.regPassword1 = "";
+            $scope.regPassword2 = "";
+
+            AuthenticationService.registration(user, setAlertLogin, setAlertRegister);
         }
     });

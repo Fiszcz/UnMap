@@ -36,7 +36,7 @@
 <body class="align-content-center justify-content-center" ng-app="YouMap">
 <div class="card" style="max-width: 26rem; top: 9rem; margin: 0 auto;">
     <div class="card-header">
-        <ul class="nav nav-pills card-header-pills" >
+        <ul class="nav nav-pills card-header-pills" id="tabLogReg" >
             <li class="nav-item">
                 <a class="nav-link active" href="#login" role="tab" id="login-tab" data-toggle="tab" aria-controls="login">Logowanie</a>
             </li>
@@ -48,14 +48,16 @@
             </li>
         </ul>
     </div>
+
+        <!-- Login -->
     <div class="card-body" ng-controller="logRegForm">
         <!-- Login to service -->
         <div id="clothing-nav-content" class="tab-content">
             <div role="tabpanel" class="tab-pane fade show active" id="login" aria-labelledby="login-tab">
-                <div class="alert d-none" role="alert" ng-class="alertLogin">
-                    <strong>{{messageLogin}}</strong>
-                </div>
                 <h4 class="card-title">Logowanie</h4>
+                <div class="alert d-none" role="alert" ng-class="classAlertLogin">
+                    {{textAlertLogin}}
+                </div>
                 <form>
                     <div class="form-group">
                         <input name="username" type="text" ng-model="credentials.username" class="form-control" id="loginAccount" placeholder="Twój login!">
@@ -72,29 +74,30 @@
         <div role="tabpanel" class="tab-pane fade" id="register" aria-labelledby="register-tab">
             <h4 class="card-title">Rejestracja</h4>
             <p class="card-text">Rejestracja jest banalnie prosta!<br> Wystarczy podać unikatowy dla siebie login oraz wystarczająco trudne hasło!</p>
+            <p class="card-text" ng-repeat="error in errorsRegister" ng-class="error.class">{{error.text}}</p>
             <!-- Login - registration -->
-            <div class="input-group form-group" data-toggle="tooltip" data-placement="top" title="{{titleLogin}}" ng-init="titleLogin: 'Login składający się z co najmniej 4 znaków'" ng-class="colorLogin">
-                <input type="text" class="form-control" ng-model="regUsername" id="loginToRegister" placeholder="Twój przyszły login!" ng-blur="checkLogin()">
+            <div class="input-group form-group is-invalid" data-toggle="tooltip" data-placement="top" ng-attr-title="{{titleLogin}}">
+                <input type="text" class="form-control" ng-class="colorLogin" ng-model="regUsername" id="loginToRegister" placeholder="Twój przyszły login!" ng-blur="checkLogin()">
                 <!-- Icon in input-->
                 <span class="input-group-addon bg-primary" ng-class="colorIconLogin">
-                    <span class="fa-question-circle-o fa" style="font-size: 150%;" ng-class="iconLogin"></span>
+                    <span class="fa" style="font-size: 150%;" ng-class="iconLogin"></span>
                 </span>
             </div>
             <!-- Password - registration -->
-            <div class="input-group form-group" data-toggle="tooltip" data-placement="top" title="Hasło z co najmniej 7 znaków w tym z cyfr" ng-class="colorPassword">
-                <input type="password" class="form-control" ng-model="regPassword1" id="passwordToRegister1" placeholder="Twoje przyszłe hasło!">
+            <div class="input-group form-group" data-toggle="tooltip" data-placement="top" ng-attr-title="{{titlePassword}}">
+                <input type="password" class="form-control" ng-class="colorPassword" ng-model="regPassword1" id="passwordToRegister1" placeholder="Twoje przyszłe hasło!">
                 <!-- Icon in input-->
                 <span class="input-group-addon bg-primary" ng-class="colorIconPassword">
-                    <span class="fa-question-circle-o fa" style="font-size: 150%;" ng-class="iconPassword"></span>
+                    <span class="fa" style="font-size: 150%;" ng-class="iconPassword"></span>
                 </span>
             </div>
             <!-- Password 2 - registration -->
-            <div class="input-group form-group" ng-class="colorPassword">
-                <input type="password" class="form-control" ng-model="regPassword2" id="passwordToRegister2" placeholder="Twoje przyszłe hasło!">
+            <div class="input-group form-group">
+                <input type="password" class="form-control" ng-class="colorPassword" ng-model="regPassword2" id="passwordToRegister2" placeholder="Twoje przyszłe hasło!">
             </div>
             <!-- Email - registration -->
-            <div class="input-group form-group" data-toggle="tooltip" data-placement="top" title="{{titleEmail}}" ng-class="colorEmail">
-                <input type="email" class="form-control" ng-model="regEmail" id="email" placeholder="Twój email! (opcjalne)" ng-blur="checkEmail()">
+            <div class="input-group form-group" data-toggle="tooltip" data-placement="top">
+                <input type="text" class="form-control" ng-class="colorEmail" ng-model="regEmail" id="email" placeholder="Twój email!" ng-blur="checkEmail()">
                 <!-- Icon in input-->
                 <span class="input-group-addon bg-warning d-none" ng-class="colorIconEmail">
                     <span class="fa fa-warning" style="font-size: 150%;" ng-class="iconEmail"></span>

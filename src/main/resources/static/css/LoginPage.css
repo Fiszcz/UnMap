@@ -2,3 +2,12 @@ body {
     background-image: url("../images/world map.jpg");
     background-size:100%;
 }
+
+/*validation form*/
+.is-warning {
+    border-color: #fef606;
+}
+
+.is-warning:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 246, 6, 0.6);
+}

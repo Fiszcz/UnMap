@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.youmap.entity.User;
-import com.youmap.service.RegisterService;
+import com.youmap.service.AccessService;
 import com.youmap.service.TravelService;
 
 @RestController
@@ -21,7 +22,7 @@ import com.youmap.service.TravelService;
 public class Access {
 	
 	@Autowired
-	RegisterService registerService;
+	AccessService accessService;
 	
 	@Autowired
 	TravelService travelService;
@@ -32,7 +33,7 @@ public class Access {
 	}
 	
 	@PostMapping("/register")
-	public String registration(@RequestBody User user) {
-		return registerService.register(user);
+	public ResponseEntity<Object> registration(@RequestBody User user) {
+		return accessService.register(user);
 	}
 }
