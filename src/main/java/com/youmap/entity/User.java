@@ -3,6 +3,9 @@ package com.youmap.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
-    //authorisation and authorization -> see com.youmap.confige.SecurityConfig
+    //Authorization and authorization -> see com.youmap.confige.SecurityConfig
     @Column(columnDefinition = "VARCHAR(50)", nullable = false, unique = true)
     private String username;
     @Column(columnDefinition = "VARCHAR(100)", nullable = false)
@@ -28,7 +31,13 @@ public class User {
     private String name;
     @Column(columnDefinition = "VARCHAR(20)")
     private String surname;
-    @Column(columnDefinition = "VARCHAR(40)")
+    @Column(columnDefinition = "VARCHAR(2)")
+    private String country;
+    @Temporal(TemporalType.DATE)
+    private Calendar birthday;
+   
+
+	@Column(columnDefinition = "VARCHAR(40)")
     private String email;
     
     @OneToMany(cascade = CascadeType.ALL)
@@ -93,6 +102,22 @@ public class User {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+	
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Calendar getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Calendar birthday2) {
+		this.birthday = birthday2;
 	}
 
 	public String getEmail() {

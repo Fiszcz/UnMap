@@ -26,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditProfile.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditProfile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EditProfile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6465">
-              <caret line="444" column="18" lean-forward="true" selection-start-line="444" selection-start-column="18" selection-end-line="444" selection-end-column="18" />
+            <state relative-caret-position="245">
+              <caret line="342" column="30" lean-forward="true" selection-start-line="342" selection-start-column="30" selection-end-line="342" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -44,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editProfile.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="editProfile.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/editProfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="61" selection-start-line="61" selection-end-line="61" />
+            <state relative-caret-position="542">
+              <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
             </state>
           </provider>
         </entry>
@@ -134,8 +134,8 @@
         <option value="$PROJECT_DIR$/js/youMapViewer.js" />
         <option value="$PROJECT_DIR$/MainPage.html" />
         <option value="$PROJECT_DIR$/js/main.js" />
-        <option value="$PROJECT_DIR$/js/editProfile.js" />
         <option value="$PROJECT_DIR$/EditProfile.html" />
+        <option value="$PROJECT_DIR$/js/editProfile.js" />
       </list>
     </option>
   </component>
@@ -214,18 +214,18 @@
       <updated>1516321344508</updated>
       <workItem from="1516321346416" duration="134597000" />
       <workItem from="1516882969009" duration="114000" />
-      <workItem from="1526232964677" duration="4301000" />
+      <workItem from="1526232964677" duration="7148000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139012000" />
+    <option name="totallyTimeSpent" value="141859000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49382716" visible="true" weight="0.1326053" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" sideWeight="0.49382716" visible="true" weight="0.15054603" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
@@ -1430,20 +1430,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/editProfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StronaGlowna.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1166">
@@ -1462,10 +1448,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/StronaGlowna.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/EditProfile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6465">
-          <caret line="444" column="18" lean-forward="true" selection-start-line="444" selection-start-column="18" selection-end-line="444" selection-end-column="18" />
+        <state relative-caret-position="245">
+          <caret line="342" column="30" lean-forward="true" selection-start-line="342" selection-start-column="30" selection-end-line="342" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/editProfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
         </state>
       </provider>
     </entry>

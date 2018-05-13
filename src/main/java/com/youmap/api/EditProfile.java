@@ -37,6 +37,16 @@ public class EditProfile {
 		return editProfileService.setName(principal.getName(), json.get("name"), json.get("surname"));
 	}
 	
+	@PostMapping("/setCountry")
+	public String setCountry(@AuthenticationPrincipal Principal principal, @RequestBody String country) {
+		return editProfileService.setCountry(principal.getName(), country);
+	}
+	
+	@PostMapping("/setBirthday")
+	public String setBirthday(@AuthenticationPrincipal Principal principal, @RequestBody Map<String, Integer> json) {
+		return editProfileService.setBirthday(principal.getName(), json.get("day"), json.get("month"), json.get("year"));
+	}
+	
 	@PostMapping("/changePassword")
 	public String changePassword(@AuthenticationPrincipal Principal principal, @RequestBody Map<String, String> passwords) {
 		return accessService.changePassword(principal.getName(), passwords.get("oldPassword").trim(), passwords.get("newPassword").trim());
