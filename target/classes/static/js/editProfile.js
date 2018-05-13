@@ -96,7 +96,7 @@ angular.module('YouMap', ['ngAnimate'])
         /////////////////
         //functions CONTROLLER
         /////////////////
-        var changeName = function(){
+        $scope.changeName = function(){
             json = {
                 "name": $scope.name,
                 "surname": $scope.surname
@@ -104,7 +104,7 @@ angular.module('YouMap', ['ngAnimate'])
             Change.changeName(json);
         };
 
-        var changePassword = function() {
+        $scope.changePassword = function() {
             var passwords = {
                 "oldPassword": $scope.oldPassword,
                 "newPassword": $scope.newPassword1
@@ -115,11 +115,11 @@ angular.module('YouMap', ['ngAnimate'])
             $scope.newPassword2 = "";
         };
 
-        var changeEmail = function() {
+        $scope.changeEmail = function() {
             Change.changeEmail($scope.email);
         };
 
-        var deleteAccount = function() {
+        $scope.deleteAccount = function() {
             Change.deleteAccount($scope.passwordForDelete);
         };
 
